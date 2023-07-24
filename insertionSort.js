@@ -39,6 +39,45 @@
 // This function is to help you test, and should not be incorporated in your solution.
 // It will transform an array of numbers into an array of valid objects.
 var insertionSort = function(array) {
-   
-    return array 
-   }
+    // Step 1: Implement the insertion sort algorithm
+    for (let i = 1; i < array.length; i++) {
+      let j = i - 1;
+      const current = array[i];
+  
+      // Move elements of array[0..i-1] that are greater than `current.value`
+      // to one position ahead of their current position
+      while (j >= 0 && array[j].value > current.value) {
+        array[j + 1] = array[j];
+        j--;
+      }
+      array[j + 1] = current;
+    }
+  
+    // Step 2: Handle the case when two elements have the same `value` field
+    // and need to retain their relative order
+    for (let i = 1; i < array.length; i++) {
+      let j = i;
+      const current = array[i];
+  
+      // If two elements have the same `value`, sort based on their `order` field
+      while (j > 0 && array[j - 1].value === current.value && array[j - 1].order > current.order) {
+        array[j] = array[j - 1];
+        j--;
+      }
+      array[j] = current;
+    }
+  
+    return array;
+  };
+  
+  // Example usage:
+  const sortedArray = insertionSort([
+    { value: 2 },
+    { value: 1 },
+    { value: 3 },
+    { value: 5, order: 2 },
+    { value: 5, order: 1 },
+  ]);
+  
+  console.log(sortedArray);
+  

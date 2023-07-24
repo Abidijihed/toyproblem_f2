@@ -18,5 +18,38 @@ NOTE: DO NOT use JavaScript’s built-in sorting function (Array.prototype.sort)
 */
 
 function quickSort(arr) {
-    
-     }
+  if (arr.length <= 1) {
+    return arr; // Base case: an array with 0 or 1 element is already sorted
+  }
+
+  const pivot = arr[arr.length - 1]; // Choose the last element as the pivot
+  const leftPartition = [];
+  const rightPartition = [];
+
+  // Partition the array into two partitions: elements less than the pivot and elements greater than the pivot
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i].value < pivot.value) {
+      leftPartition.push(arr[i]);
+    } else {
+      rightPartition.push(arr[i]);
+    }
+  }
+
+  // Recursively apply Quicksort to the two partitions
+  const sortedLeft = quickSort(leftPartition);
+  const sortedRight = quickSort(rightPartition);
+
+  // Join the sorted partitions and the pivot to get the final sorted array
+  return [...sortedLeft, pivot, ...sortedRight];
+}
+
+// Example usage:
+const sortedArray = quickSort([
+  { value: 2 },
+  { value: 1 },
+  { value: 3 },
+  { value: 5, order: 2 },
+  { value: 5, order: 1 },
+]);
+
+console.log(sortedArray);
